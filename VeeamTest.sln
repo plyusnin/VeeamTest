@@ -2,6 +2,10 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VeeamTest.Shell", "VeeamTest.Shell\VeeamTest.Shell.csproj", "{79991F59-2D04-4748-9DD0-F22AD80735A1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VeeamTest.Commons", "VeeamTest.Commons\VeeamTest.Commons.csproj", "{C0A822B3-31F5-4087-970B-9E054808D269}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VeeamTest.Tests", "VeeamTest.Tests\VeeamTest.Tests.csproj", "{B9AA6645-5F05-450D-A2A4-E26FC524C660}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +16,13 @@ Global
 		{79991F59-2D04-4748-9DD0-F22AD80735A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{79991F59-2D04-4748-9DD0-F22AD80735A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{79991F59-2D04-4748-9DD0-F22AD80735A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0A822B3-31F5-4087-970B-9E054808D269}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0A822B3-31F5-4087-970B-9E054808D269}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0A822B3-31F5-4087-970B-9E054808D269}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0A822B3-31F5-4087-970B-9E054808D269}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9AA6645-5F05-450D-A2A4-E26FC524C660}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9AA6645-5F05-450D-A2A4-E26FC524C660}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9AA6645-5F05-450D-A2A4-E26FC524C660}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9AA6645-5F05-450D-A2A4-E26FC524C660}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
