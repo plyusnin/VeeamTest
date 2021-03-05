@@ -2,5 +2,7 @@
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=11f2425a_002De6ad_002D4744_002Db7ce_002D5cac2f3eaa98/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="ForthAndBackBulk" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;NUnit3x::B9AA6645-5F05-450D-A2A4-E26FC524C660::.NETCoreApp,Version=v3.1::VeeamTest.Tests.GzipProcessorTests&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::B9AA6645-5F05-450D-A2A4-E26FC524C660::.NETCoreApp,Version=v3.1::VeeamTest.Tests.FileParsersTests.ForthAndBack&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::B9AA6645-5F05-450D-A2A4-E26FC524C660::.NETCoreApp,Version=v3.1::VeeamTest.Tests.FileParsersTests.LegoParserCrossCheck&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
