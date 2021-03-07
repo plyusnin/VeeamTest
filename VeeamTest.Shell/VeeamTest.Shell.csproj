@@ -8,7 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Processing" />
+      <ProjectReference Include="..\VeeamTest.Commons\VeeamTest.Commons.csproj" />
     </ItemGroup>
 
 </Project>

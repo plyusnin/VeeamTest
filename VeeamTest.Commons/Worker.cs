@@ -7,10 +7,10 @@ namespace VeeamTest.Commons
 {
     public class Worker
     {
+        private readonly int _degreeOfParallelism = 1;
         private readonly IProcessor _processor;
         private readonly IBlockSink _sink;
         private readonly IBlockSource _source;
-        private readonly int _threadsCount = 6;
 
         public Worker(IBlockSource Source, IBlockSink Sink, IProcessor Processor)
         {
@@ -21,13 +21,16 @@ namespace VeeamTest.Commons
 
         public void Run()
         {
-            var threads = Enumerable.Range(0, _threadsCount)
+            var threads = Enumerable.Range(0, _degreeOfParallelism - 1)
                                     .Select(_ => new Thread(Routine))
                                     .ToList();
 
-            foreach (var thread in threads) thread.Start();
-            
-            // TODO: Как-то надо дождаться, пока все потоки закончатся
+            foreach (var thread in threads)
+                thread.Start();
+
+            Routine();
+
+            foreach (var thread in threads) thread.Join();
         }
 
         private void Routine()
