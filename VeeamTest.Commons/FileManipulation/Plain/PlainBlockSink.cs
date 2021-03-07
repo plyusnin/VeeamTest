@@ -11,6 +11,8 @@ namespace VeeamTest.Commons.FileManipulation.Plain
             _stream = Stream;
         }
 
+        public static IBlockSinkFactory Factory => new LambdaBlockSinkFactory(s => new PlainBlockSink(s));
+
         public void Put(Block Block)
         {
             _stream.Seek(Block.Offset, SeekOrigin.Begin);

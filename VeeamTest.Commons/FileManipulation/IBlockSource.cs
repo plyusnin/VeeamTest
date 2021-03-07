@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace VeeamTest.Commons.FileManipulation
 {
@@ -19,6 +21,26 @@ namespace VeeamTest.Commons.FileManipulation
                 else
                     yield break;
             }
+        }
+    }
+
+    public interface IBlockSourceFactory
+    {
+        public IBlockSource Create(Stream ForStream);
+    }
+
+    internal class LambdaBlockSourceFactory : IBlockSourceFactory
+    {
+        private readonly Func<Stream, IBlockSource> _delegate;
+
+        public LambdaBlockSourceFactory(Func<Stream, IBlockSource> Delegate)
+        {
+            _delegate = Delegate;
+        }
+
+        public IBlockSource Create(Stream ForStream)
+        {
+            return _delegate(ForStream);
         }
     }
 }

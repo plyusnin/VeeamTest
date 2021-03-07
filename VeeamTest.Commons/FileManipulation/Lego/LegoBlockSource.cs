@@ -11,6 +11,8 @@ namespace VeeamTest.Commons.FileManipulation.Lego
             _reader = new BinaryReader(Stream);
         }
 
+        public static IBlockSourceFactory Factory => new LambdaBlockSourceFactory(s => new LegoBlockSource(s));
+
         public Block? Take()
         {
             if (_reader.BaseStream.Position == _reader.BaseStream.Length)

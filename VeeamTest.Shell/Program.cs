@@ -2,10 +2,6 @@
 using System.Diagnostics;
 using System.IO;
 using VeeamTest.Commons;
-using VeeamTest.Commons.FileManipulation.Lego;
-using VeeamTest.Commons.FileManipulation.Lockable;
-using VeeamTest.Commons.FileManipulation.Plain;
-using VeeamTest.Commons.Processing;
 
 namespace VeeamTest.Shell
 {
@@ -25,20 +21,15 @@ namespace VeeamTest.Shell
             using var inputFile  = File.OpenRead(inputFileName);
             using var outputFile = File.Create(outputFileName);
 
-            var worker = operation switch
+            var workerBuilder = operation switch
             {
-                "compress" => new Worker(
-                    new PlainBlockSource(inputFile, _blockSize).Locked(),
-                    new LegoBlockSink(outputFile).Locked(),
-                    new GzipPackProcessor()),
-
-                "decompress" => new Worker(
-                    new LegoBlockSource(inputFile).Locked(),
-                    new PlainBlockSink(outputFile).Locked(),
-                    new GzipUnpackProcessor()),
-
-                _ => throw new Exception("Unknown operation")
+                "compress"   => WorkerBuilder.Compressor(_blockSize),
+                "decompress" => WorkerBuilder.Decompressor(),
+                _            => throw new Exception("Unknown operation")
             };
+
+            var worker = workerBuilder.Parallel()
+                                      .BuildFor(inputFile, outputFile);
 
             Console.WriteLine("Starting...");
             var sw = Stopwatch.StartNew();

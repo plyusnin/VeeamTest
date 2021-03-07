@@ -28,5 +28,10 @@ namespace VeeamTest.Commons.FileManipulation.Plain
             Buffer.BlockCopy(buffer, 0, newBuffer, 0, len);
             return new Block(offset, newBuffer);
         }
+
+        public static IBlockSourceFactory Factory(int BlockSize)
+        {
+            return new LambdaBlockSourceFactory(s => new PlainBlockSource(s, BlockSize));
+        }
     }
 }

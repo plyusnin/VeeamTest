@@ -11,6 +11,8 @@ namespace VeeamTest.Commons.FileManipulation.Lego
             _writer = new BinaryWriter(Stream);
         }
 
+        public static IBlockSinkFactory Factory => new LambdaBlockSinkFactory(s => new LegoBlockSink(s));
+
         public void Put(Block Block)
         {
             _writer.Write(Block.Offset);
