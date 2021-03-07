@@ -1,6 +1,6 @@
 namespace VeeamTest.Commons.Workers
 {
-    public class SingleThreadWorker : WorkerBase
+    public class SingleThreadWorker : WorkerBase<IWorkerRepetitiveRoutine>
     {
         public SingleThreadWorker(IWorkerRepetitiveRoutine Routine) : base(Routine) { }
 

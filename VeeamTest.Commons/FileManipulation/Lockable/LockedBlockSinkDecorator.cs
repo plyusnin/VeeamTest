@@ -7,7 +7,7 @@ namespace VeeamTest.Commons.FileManipulation.Lockable
     ///     Использует <see cref="SemaphoreSlim" /> для обеспечения потокобезопасности, блокирует запрашиваемый поток до
     ///     тех пор, пока другой поток не закончит выполнение операции.
     /// </remarks>
-    public class LockedBlockSinkDecorator : IBlockSink
+    public class LockedBlockSinkDecorator : IBlockSink, IThreadSafe
     {
         private readonly IBlockSink _core;
         private readonly SemaphoreSlim _semaphore;

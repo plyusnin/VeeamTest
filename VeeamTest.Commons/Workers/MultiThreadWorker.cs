@@ -4,13 +4,14 @@ using System.Threading;
 
 namespace VeeamTest.Commons.Workers
 {
-    public class MultiThreadWorker : WorkerBase
+    public class MultiThreadWorker<TRoutine> : WorkerBase<TRoutine>
+        where TRoutine : IWorkerRepetitiveRoutine, IThreadSafe
     {
         private readonly int _degreeOfParallelism;
 
         private volatile Exception? _firstException;
 
-        public MultiThreadWorker(IWorkerRepetitiveRoutine Routine, int DegreeOfParallelism) : base(Routine)
+        public MultiThreadWorker(TRoutine Routine, int DegreeOfParallelism) : base(Routine)
         {
             _degreeOfParallelism = DegreeOfParallelism;
         }

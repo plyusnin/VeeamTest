@@ -1,10 +1,11 @@
 namespace VeeamTest.Commons.Workers
 {
-    public abstract class WorkerBase : IWorker
+    public abstract class WorkerBase<TRoutine> : IWorker
+        where TRoutine : IWorkerRepetitiveRoutine
     {
-        private readonly IWorkerRepetitiveRoutine _routine;
+        private readonly TRoutine _routine;
 
-        protected WorkerBase(IWorkerRepetitiveRoutine Routine)
+        protected WorkerBase(TRoutine Routine)
         {
             _routine = Routine;
         }

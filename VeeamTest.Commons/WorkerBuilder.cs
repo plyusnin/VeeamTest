@@ -56,13 +56,13 @@ namespace VeeamTest.Commons
             return DegreeOfParallelism switch
             {
                 1 => new SingleThreadWorker(
-                    new FileProcessWorkerRepetitiveRoutine(
+                    FileProcessWorkerRepetitiveRoutine.Create(
                         SourceFactory.Create(Input),
                         SinkFactory.Create(Output),
                         Processor)),
 
                 _ => new MultiThreadWorker(
-                    new FileProcessWorkerRepetitiveRoutine(
+                    FileProcessWorkerRepetitiveRoutine.CreateThreadSafe(
                         SourceFactory.Create(Input).Locked(),
                         SinkFactory.Create(Output).Locked(),
                         Processor),
