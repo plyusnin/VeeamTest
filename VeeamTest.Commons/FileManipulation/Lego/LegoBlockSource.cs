@@ -23,5 +23,10 @@ namespace VeeamTest.Commons.FileManipulation.Lego
             var data   = _reader.ReadBytes(length);
             return new Block(offset, data);
         }
+
+        public override string ToString()
+        {
+            return $"{StreamNameHelper.GetStreamName(_reader.BaseStream)} (Lego Source)";
+        }
     }
 }

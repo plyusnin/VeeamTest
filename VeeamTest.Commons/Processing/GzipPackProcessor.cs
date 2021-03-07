@@ -16,5 +16,10 @@ namespace VeeamTest.Commons.Processing
 
             return outputStream.ToArray();
         }
+
+        public override string ToString()
+        {
+            return "GZIP Pack";
+        }
     }
 }

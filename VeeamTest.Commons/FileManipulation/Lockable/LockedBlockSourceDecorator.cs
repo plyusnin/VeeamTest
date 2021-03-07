@@ -30,5 +30,10 @@ namespace VeeamTest.Commons.FileManipulation.Lockable
                 _semaphore.Release();
             }
         }
+
+        public override string ToString()
+        {
+            return $"[Locked {_core}]";
+        }
     }
 }

@@ -1,38 +1,29 @@
-using VeeamTest.Commons.FileManipulation;
-using VeeamTest.Commons.Processing;
-
 namespace VeeamTest.Commons.Workers
 {
     public abstract class WorkerBase : IWorker
     {
-        private readonly IProcessor _processor;
-        private readonly IBlockSink _sink;
-        private readonly IBlockSource _source;
+        private readonly IWorkerRepetitiveRoutine _routine;
 
-        protected WorkerBase(IBlockSource Source, IBlockSink Sink, IProcessor Processor)
+        protected WorkerBase(IWorkerRepetitiveRoutine Routine)
         {
-            _processor = Processor;
-            _sink      = Sink;
-            _source    = Source;
+            _routine = Routine;
         }
 
         public abstract void Run();
 
         protected virtual void Routine()
         {
-            while (true)
-                if (!ProcessDataPortion())
-                    return;
+            bool runNext;
+            do
+            {
+                runNext = _routine.Iterate() == IterationResult.Continue
+                          && OtherChecks()   == IterationResult.Continue;
+            } while (runNext);
         }
 
-        protected bool ProcessDataPortion()
+        protected virtual IterationResult OtherChecks()
         {
-            var block = _source.Take();
-            if (block == null) return false;
-
-            var processedBlock = _processor.Process(block);
-            _sink.Put(processedBlock);
-            return true;
+            return IterationResult.Continue;
         }
     }
 }

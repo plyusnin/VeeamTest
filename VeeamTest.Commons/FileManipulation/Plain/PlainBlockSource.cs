@@ -33,5 +33,10 @@ namespace VeeamTest.Commons.FileManipulation.Plain
         {
             return new LambdaBlockSourceFactory(s => new PlainBlockSource(s, BlockSize));
         }
+
+        public override string ToString()
+        {
+            return $"{StreamNameHelper.GetStreamName(_stream)} (Plain Source)";
+        }
     }
 }

@@ -18,5 +18,10 @@ namespace VeeamTest.Commons.FileManipulation.Plain
             _stream.Seek(Block.Offset, SeekOrigin.Begin);
             _stream.Write(Block.Data, 0, Block.Data.Length);
         }
+
+        public override string ToString()
+        {
+            return $"{StreamNameHelper.GetStreamName(_stream)} (Plain Sink)";
+        }
     }
 }

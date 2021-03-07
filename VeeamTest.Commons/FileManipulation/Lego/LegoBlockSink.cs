@@ -19,5 +19,10 @@ namespace VeeamTest.Commons.FileManipulation.Lego
             _writer.Write(Block.Data.Length);
             _writer.Write(Block.Data);
         }
+
+        public override string ToString()
+        {
+            return $"{StreamNameHelper.GetStreamName(_writer.BaseStream)} (Lego Sink)";
+        }
     }
 }

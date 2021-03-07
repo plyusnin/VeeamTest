@@ -1,8 +1,6 @@
 using System;
 using System.Linq;
 using System.Threading;
-using VeeamTest.Commons.FileManipulation;
-using VeeamTest.Commons.Processing;
 
 namespace VeeamTest.Commons.Workers
 {
@@ -10,10 +8,9 @@ namespace VeeamTest.Commons.Workers
     {
         private readonly int _degreeOfParallelism;
 
-        private Exception? _firstException;
+        private volatile Exception? _firstException;
 
-        public MultiThreadWorker(IBlockSource Source, IBlockSink Sink, IProcessor Processor, int DegreeOfParallelism)
-            : base(Source, Sink, Processor)
+        public MultiThreadWorker(IWorkerRepetitiveRoutine Routine, int DegreeOfParallelism) : base(Routine)
         {
             _degreeOfParallelism = DegreeOfParallelism;
         }
@@ -39,14 +36,19 @@ namespace VeeamTest.Commons.Workers
         {
             try
             {
-                while (true)
-                    if (!ProcessDataPortion() || _firstException != null)
-                        return;
+                base.Routine();
             }
             catch (Exception e)
             {
                 Interlocked.CompareExchange(ref _firstException, e, null);
             }
+        }
+
+        protected override IterationResult OtherChecks()
+        {
+            return _firstException == null
+                ? IterationResult.Continue
+                : IterationResult.Break;
         }
     }
 }
