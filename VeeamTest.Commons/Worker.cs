@@ -7,7 +7,7 @@ namespace VeeamTest.Commons
 {
     public class Worker
     {
-        private readonly int _degreeOfParallelism = 1;
+        private readonly int _degreeOfParallelism = 6;
         private readonly IProcessor _processor;
         private readonly IBlockSink _sink;
         private readonly IBlockSource _source;
