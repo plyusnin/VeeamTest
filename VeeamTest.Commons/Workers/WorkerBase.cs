@@ -18,16 +18,21 @@ namespace VeeamTest.Commons.Workers
 
         public abstract void Run();
 
-        protected void Routine()
+        protected virtual void Routine()
         {
             while (true)
-            {
-                var block = _source.Take();
-                if (block == null) return;
+                if (!ProcessDataPortion())
+                    return;
+        }
 
-                var processedBlock = _processor.Process(block);
-                _sink.Put(processedBlock);
-            }
+        protected bool ProcessDataPortion()
+        {
+            var block = _source.Take();
+            if (block == null) return false;
+
+            var processedBlock = _processor.Process(block);
+            _sink.Put(processedBlock);
+            return true;
         }
     }
 }
