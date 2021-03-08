@@ -1,5 +1,6 @@
 namespace VeeamTest.Commons.FileManipulation
 {
+    /// <summary>Блок данных</summary>
     public class Block
     {
         public Block(long Offset, byte[] Data)

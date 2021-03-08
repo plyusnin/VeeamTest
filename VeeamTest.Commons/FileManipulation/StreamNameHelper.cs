@@ -4,6 +4,8 @@ namespace VeeamTest.Commons.FileManipulation
 {
     internal static class StreamNameHelper
     {
+        /// <summary>Возвращает наиболее подходящее строковое представления для потока, указанного в <see cref="ForStream" /></summary>
+        /// <param name="ForStream">Поток, название которого требуется определить</param>
         public static string GetStreamName(Stream ForStream)
         {
             switch (ForStream)

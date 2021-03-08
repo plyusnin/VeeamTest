@@ -4,6 +4,7 @@ using System.Threading;
 
 namespace VeeamTest.Commons.Workers
 {
+    /// <summary>Распараллеливает выполнение репитативной операции на указанное количество потоков</summary>
     public class MultiThreadWorker : WorkerBase
     {
         private readonly int _degreeOfParallelism;

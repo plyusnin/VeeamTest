@@ -1,5 +1,6 @@
 namespace VeeamTest.Commons.Workers
 {
+    /// <summary>Обработчик репитативной операции</summary>
     public abstract class WorkerBase : IWorker
     {
         private readonly IWorkerRepetitiveRoutine _routine;

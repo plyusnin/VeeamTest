@@ -3,6 +3,7 @@ using VeeamTest.Commons.Processing;
 
 namespace VeeamTest.Commons.Workers
 {
+    /// <summary>Репитетивная операция по обработке файла указанным <see cref="IProcessor" /></summary>
     public class FileProcessWorkerRepetitiveRoutine : IWorkerRepetitiveRoutine
     {
         private readonly IProcessor _processor;
