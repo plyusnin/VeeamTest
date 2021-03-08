@@ -38,16 +38,19 @@ namespace VeeamTest.Commons
                        new GzipPackProcessor());
         }
 
-        public WorkerBuilder WithDegreeOfParallelism(int ThreadsCount)
+        public WorkerBuilder Parallel(int ThreadsCount)
         {
+            if (ThreadsCount < 1)
+                throw new ArgumentException($"Количество потоков должно быть >= 1 (запрошено {ThreadsCount})",
+                                            nameof(ThreadsCount));
+
             DegreeOfParallelism = ThreadsCount;
             return this;
         }
 
         public WorkerBuilder Parallel()
         {
-            DegreeOfParallelism = Environment.ProcessorCount;
-            return this;
+            return Parallel(Environment.ProcessorCount);
         }
 
 

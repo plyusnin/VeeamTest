@@ -9,34 +9,63 @@ namespace VeeamTest.Shell
     {
         private static readonly int _blockSize = 1024 * 1024;
 
-        private static void Main(string[] args)
+        private static int Main(string[] args)
         {
-            if (args.Length < 3)
-                throw new Exception("Число параметров должно быть равно 3");
-
-            var operation      = args[0];
-            var inputFileName  = args[1];
-            var outputFileName = args[2];
-
-            using var inputFile  = File.OpenRead(inputFileName);
-            using var outputFile = File.Create(outputFileName);
-
-            var workerBuilder = operation switch
+            (Operation Operation, string Input, string Output) parameters;
+            try
             {
-                "compress"   => WorkerBuilder.Compressor(_blockSize),
-                "decompress" => WorkerBuilder.Decompressor(),
-                _            => throw new Exception("Unknown operation")
+                parameters = Arguments.ProcessArguments(args);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Ошибка в аргументах запуска программы: {e.Message}");
+                Arguments.PrintHelp();
+                return 1;
+            }
+
+            try
+            {
+                Execute(parameters.Operation, parameters.Input, parameters.Output);
+                return 0;
+            }
+            catch (Exception e)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"В ходе работы возникла ошибка: {e.Message}");
+                Console.ResetColor();
+                Console.Error.WriteLine(e.ToString());
+                return 1;
+            }
+        }
+
+        private static void Execute(Operation Operation, string InputFileName, string OutputFileName)
+        {
+            using var inputFile  = File.OpenRead(InputFileName);
+            using var outputFile = File.Create(OutputFileName);
+
+            var workerBuilder = Operation switch
+            {
+                Operation.Compress   => WorkerBuilder.Compressor(_blockSize),
+                Operation.Decompress => WorkerBuilder.Decompressor(),
+                _                    => throw new Exception("Неподдерживаемая операция")
             };
 
             var worker = workerBuilder.Parallel()
                                       .BuildFor(inputFile, outputFile);
 
-            Console.WriteLine("Starting...");
+            Console.WriteLine("Работаем...");
+
             var sw = Stopwatch.StartNew();
             worker.Run();
-            var elapsed = sw.Elapsed;
+            sw.Stop();
 
-            Console.WriteLine($"Done in {elapsed.TotalSeconds:F3} sec");
+            Console.WriteLine($"Закончили за {sw.Elapsed.TotalSeconds:F3} сек.");
         }
+    }
+
+    public enum Operation
+    {
+        Compress,
+        Decompress
     }
 }
