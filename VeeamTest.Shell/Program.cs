@@ -25,7 +25,13 @@ namespace VeeamTest.Shell
 
             try
             {
+                Console.WriteLine("Работаем...");
+
+                var sw = Stopwatch.StartNew();
                 Execute(parameters.Operation, parameters.Input, parameters.Output);
+                sw.Stop();
+
+                Console.WriteLine($"Закончили за {sw.Elapsed.TotalSeconds:F3} сек.");
                 return 0;
             }
             catch (Exception e)
@@ -53,13 +59,7 @@ namespace VeeamTest.Shell
             var worker = workerBuilder.Parallel()
                                       .BuildFor(inputFile, outputFile);
 
-            Console.WriteLine("Работаем...");
-
-            var sw = Stopwatch.StartNew();
             worker.Run();
-            sw.Stop();
-
-            Console.WriteLine($"Закончили за {sw.Elapsed.TotalSeconds:F3} сек.");
         }
     }
 
